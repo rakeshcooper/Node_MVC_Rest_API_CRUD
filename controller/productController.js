@@ -1,5 +1,5 @@
 
-const {findAll, findbyId, newProduct} = require('../model/productModel')
+const {findAll, findbyId, newProduct, update, deleteData} = require('../model/productModel')
 const { bodyPostdata } = require("../utils")
 
 const header = {"content-type":"application/json"}
@@ -49,7 +49,7 @@ async function createProduct(req, res){
         } else {
             console.log(newProductdata);
             res.writeHead(201,header)
-            return res.end(JSON.stringify(newProductdata))
+            res.end(JSON.stringify(newProductdata))
         }
 
         
@@ -60,6 +60,45 @@ async function createProduct(req, res){
     }
 }
 
+
+async function updateProduct(req, res, id){
+    try{
+
+        const product = await findbyId(id)
+        
+        if(!product){
+            res.writeHead(404,header)
+            res.end(JSON.stringify({message: "data not found"}))    
+        } else {
+            const body = await bodyPostdata(req,res)
+            const { names, desc } = JSON.parse(body)
+            const productupd = {
+                names : names || product.names,
+                desc: desc || product.desc
+            }
+            const updatedData = await update(id, productupd)
+            res.writeHead(201,header)
+            res.end(JSON.stringify(updatedData))
+        }
+ 
+    } catch(error){
+        console.log(error);
+        
+    }
+}
+
+async function deleteProduct(req,res,id){
+    try{
+        const delData = await deleteData(id)
+        res.writeHead(200,header)
+        res.end(JSON.stringify({ message: `ID: ${id} Deleted suscessfully` }))
+        
+    } catch(err){
+        console.error(err);
+        
+    }
+}
+
 module.exports = {
-    getProducts, getProductbyid, createProduct
+    getProducts, getProductbyid, createProduct, updateProduct, deleteProduct
 }

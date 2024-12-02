@@ -25,6 +25,26 @@ function newProduct(postData){
     })
 }
 
+function update(id, updatedData){
+    return new Promise((resolve, reject) => {
+       const index = productData.findIndex((p) => p.id === id) 
+       const newUpdateddata =  {id:id, ...updatedData}
+       productData[index] = newUpdateddata      
+       writeDatafile(path.join("data","product.json"), productData)
+       resolve(newUpdateddata)
+    })
+}
+
+
+function deleteData(id){
+    return new Promise((resolve, reject) => {
+       const removedData = productData.filter((p) => p.id !== id) 
+       productData.push(removedData)      
+       writeDatafile(path.join("data","product.json"), removedData)
+       resolve(removedData)
+    })
+}
+
 module.exports = {
-    findAll, findbyId, newProduct
+    findAll, findbyId, newProduct, update, deleteData
 }
