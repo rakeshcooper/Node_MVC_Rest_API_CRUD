@@ -43,14 +43,6 @@ async function createProduct(req, res){
             desc
         }
         const newProductdata = await newProduct(productd)
-
-        // const productd = {
-        //     names : "ffff",
-        //     desc: "ddfdfdf"
-        // }
-
-        // const newProductdata = await newProduct(productd)
-
         if(!newProductdata){
             res.writeHead(404,header)
             res.end(JSON.stringify({message: "data not found"}))    
