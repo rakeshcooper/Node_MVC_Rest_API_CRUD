@@ -9,7 +9,7 @@
   },
   "author": "Rakesh_Cooper",
   "license": "MIT",
-  "description": "",
+  "description": "node_modules",
   "devDependencies": {
     "nodemon": "^3.1.7"
   }
