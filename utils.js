@@ -1,14 +1,14 @@
 const fs = require("fs")
-const path =  require("path")
 
-function writeDatafile(content){
-    fs.writeFileSync(path.join("data","product.json"),content, "utf-8", (err) => {
+
+function writeDatafile(filename, content){
+    fs.writeFileSync(filename, JSON.stringify(content), "utf-8", (err) => {
         console.error(err);
         
     })
 }
 
-function bodyPostdata(res,req) {
+function bodyPostdata(req,res) {
     try{
         return new Promise((resolve, reject) => {
             let body = ""

@@ -1,5 +1,6 @@
 const productData = require('../data/product.json')
 const { writeDatafile } = require('../utils')
+const path =  require("path")
 const ruuid = crypto.randomUUID()
 
 function findAll(){
@@ -17,9 +18,10 @@ function findbyId(id){
 
 function newProduct(postData){
     return new Promise((resolve, reject) => {
-       const newData =  productData.push({id:ruuid, ...postData})      
-        writeDatafile(newData)
-        resolve(newData)
+       const newPostdata =  {id:ruuid, ...postData}
+       productData.push(newPostdata)      
+       writeDatafile(path.join("data","product.json"), productData)
+       resolve(newPostdata)
     })
 }
 
