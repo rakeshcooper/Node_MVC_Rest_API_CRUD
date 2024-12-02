@@ -8,8 +8,8 @@ async function getProducts(req,res){
         const showProduct = await findAll()
         res.writeHead(200,{ "content-type":"application/json" })
         res.end(JSON.stringify(showProduct))
-    } catch(err) {
-        console.error(err);
+    } catch(error) {
+        console.error(error);
         
     }
 }
