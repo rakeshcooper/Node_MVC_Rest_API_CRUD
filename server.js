@@ -2,7 +2,7 @@ const http = require("http")
 const product = require("./data/product.json")
 const productData = require("./model/productModel")
 const PORT = process.env.PORT || 3000
-const { getProducts, getProductbyid } = require("./controller/productController")
+const { getProducts, getProductbyid, createProduct } = require("./controller/productController")
 
 const server = http.createServer(async(req,res) => {
     try{
