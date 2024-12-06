@@ -17,16 +17,6 @@ function findbyId(id){
     })
 }
 
-// function newProduct(postData){
-//     return new Promise(async(resolve, reject) => {
-//        const newPostdata =  {id:ruuid, ...postData}
-//        productData.push(poductval)      
-//        writeDatafile(path.join("data","product.json"), productData)
-//        resolve(newPostdata)
-//     })
-// }
-
-
 function newProduct(postData,res){
     return new Promise(async(resolve, reject) => {
           try{
@@ -45,15 +35,6 @@ function newProduct(postData,res){
     })
 }
 
-// function update(id, updatedData){
-//     return new Promise((resolve, reject) => {
-//        const index = productData.findIndex((p) => p.id === id) 
-//        const newUpdateddata =  {id:id, ...updatedData}
-//        productData[index] = newUpdateddata      
-//        writeDatafile(path.join("data","product.json"), productData)
-//        resolve(newUpdateddata)
-//     })
-// }
 
 function update(id, updatedData){
     return new Promise(async(resolve, reject) => {
@@ -67,13 +48,11 @@ function update(id, updatedData){
            resolve(productVali)
        } catch(err){
              reject(err )
-                     res.writeHead(201,{"content-type":"application/json"})
-                     res.end(JSON.stringify({message:`${err}`}))
+             res.writeHead(201,{"content-type":"application/json"})
+             res.end(JSON.stringify({message:`${err}`}))
        }
     })
 }
-
-
 
 
 function deleteData(id){
