@@ -42,7 +42,7 @@ async function createProduct(req, res){
             names,
             desc
         }
-        const newProductdata = await newProduct(productd)
+        const newProductdata = await newProduct(productd,res)
         if(!newProductdata){
             res.writeHead(404,header)
             res.end(JSON.stringify({message: "data not found"}))    

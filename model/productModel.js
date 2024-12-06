@@ -28,7 +28,7 @@ function findbyId(id){
 // }
 
 
-function newProduct(postData){
+function newProduct(postData,res){
     return new Promise(async(resolve, reject) => {
           try{
                     const newPostdata =  {id:ruuid, ...postData}
@@ -38,8 +38,10 @@ function newProduct(postData){
                     await writeDatafile(path.join("data","product.json"), productData)
                     resolve(productVali)
             }   catch(err) {
-                    reject(err)
-            }
+                    reject(err )
+                     res.writeHead(201,{"content-type":"application/json"})
+                     res.end(JSON.stringify({message:`${err}`}))
+           }
             
     })
 }
