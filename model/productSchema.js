@@ -16,8 +16,13 @@ const productValidateSchema = new mongoose.Schema({
         type: String 
     },
      createAt: {
-        type: Date,
         immutable:true,
+        type: Date,
+        default:() => new Date(),
+    },
+
+    updateAt: {
+        type: Date,
         default:() => new Date(),
     },
 })

@@ -74,7 +74,8 @@ async function updateProduct(req, res, id){
             const { names, desc } = JSON.parse(body)
             const productupd = {
                 names : names || product.names,
-                desc: desc || product.desc
+                desc: desc || product.desc,
+                createAt: product.createAt
             }
             const updatedData = await update(id, productupd)
             res.writeHead(201,header)
