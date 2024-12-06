@@ -7,7 +7,15 @@ const productValidateSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    desc: String
+    desc: {
+        type: String,
+        required: true
+    },
+     createAt: {
+        type: Date,
+        immutable:true,
+        default:() => new Date(),
+    },
 })
 
 
