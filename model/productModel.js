@@ -20,7 +20,6 @@ function findbyId(id){
 // function newProduct(postData){
 //     return new Promise(async(resolve, reject) => {
 //        const newPostdata =  {id:ruuid, ...postData}
-//        const poductval = await new ProductVal(newPostdata).validate()
 //        productData.push(poductval)      
 //        writeDatafile(path.join("data","product.json"), productData)
 //        resolve(newPostdata)
@@ -38,7 +37,7 @@ function newProduct(postData,res){
                     await writeDatafile(path.join("data","product.json"), productData)
                     resolve(productVali)
             }   catch(err) {
-                    reject(err )
+                     reject(err )
                      res.writeHead(201,{"content-type":"application/json"})
                      res.end(JSON.stringify({message:`${err}`}))
            }
@@ -46,15 +45,35 @@ function newProduct(postData,res){
     })
 }
 
+// function update(id, updatedData){
+//     return new Promise((resolve, reject) => {
+//        const index = productData.findIndex((p) => p.id === id) 
+//        const newUpdateddata =  {id:id, ...updatedData}
+//        productData[index] = newUpdateddata      
+//        writeDatafile(path.join("data","product.json"), productData)
+//        resolve(newUpdateddata)
+//     })
+// }
+
 function update(id, updatedData){
-    return new Promise((resolve, reject) => {
-       const index = productData.findIndex((p) => p.id === id) 
-       const newUpdateddata =  {id:id, ...updatedData}
-       productData[index] = newUpdateddata      
-       writeDatafile(path.join("data","product.json"), productData)
-       resolve(newUpdateddata)
+    return new Promise(async(resolve, reject) => {
+       try{
+           const index = productData.findIndex((p) => p.id === id) 
+           const newUpdateddata =  {id:id, ...updatedData}
+           const productVali =  new ProductVal(await newUpdateddata) 
+           await productVali.validate()
+           productData[index] = productVali      
+           writeDatafile(path.join("data","product.json"), productData)
+           resolve(productVali)
+       } catch(err){
+             reject(err )
+                     res.writeHead(201,{"content-type":"application/json"})
+                     res.end(JSON.stringify({message:`${err}`}))
+       }
     })
 }
+
+
 
 
 function deleteData(id){
