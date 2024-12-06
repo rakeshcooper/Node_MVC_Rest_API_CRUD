@@ -1,7 +1,7 @@
 const fs = require("fs")
 
 
-function writeDatafile(filename, content){
+async function writeDatafile(filename, content){
     fs.writeFileSync(filename, JSON.stringify(content), "utf-8", (err) => {
         console.error(err);
         

@@ -2,6 +2,7 @@ const productData = require('../data/product.json')
 const { writeDatafile } = require('../utils')
 const path =  require("path")
 const ruuid = crypto.randomUUID()
+const ProductVal = require('./productSchema')
 
 function findAll(){
     return new Promise((resolve, reject) => {
@@ -16,12 +17,30 @@ function findbyId(id){
     })
 }
 
+// function newProduct(postData){
+//     return new Promise(async(resolve, reject) => {
+//        const newPostdata =  {id:ruuid, ...postData}
+//        const poductval = await new ProductVal(newPostdata).validate()
+//        productData.push(poductval)      
+//        writeDatafile(path.join("data","product.json"), productData)
+//        resolve(newPostdata)
+//     })
+// }
+
+
 function newProduct(postData){
-    return new Promise((resolve, reject) => {
-       const newPostdata =  {id:ruuid, ...postData}
-       productData.push(newPostdata)      
-       writeDatafile(path.join("data","product.json"), productData)
-       resolve(newPostdata)
+    return new Promise(async(resolve, reject) => {
+          try{
+                    const newPostdata =  {id:ruuid, ...postData}
+                    const productVali =  new ProductVal(await newPostdata) 
+                    await productVali.validate()
+                    productData.push(productVali)      
+                    await writeDatafile(path.join("data","product.json"), productData)
+                    resolve(productVali)
+            }   catch(err) {
+                    reject(err)
+            }
+            
     })
 }
 
