@@ -20,7 +20,7 @@ function findbyId(id){
 function newProduct(postData,res){
     return new Promise(async(resolve, reject) => {
           try{
-                    const newPostdata =  {id:ruuid, ...postData}
+                const newPostdata =  {id:ruuid, ...postData}
                     const productVali =  new ProductVal(await newPostdata) 
                     await productVali.validate()
                     productData.push(productVali)      
